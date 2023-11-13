@@ -20,18 +20,23 @@
         .selected {
             background-color: #00ff00;
         }
+        .content {
+            padding: 20px;
+            text-align: center; /* Center-align the content */
+            color: #333;
+        }
     </style>
 </head>
-<body>
-    <h1>Bus Booking System</h1>
-
+<body class="content">
+    <h1>Select Seats</h1>
+    <br>
     <form method="post">
         <label for="route">Select Route:</label>
         <select id="route" name="route">
             <option value="Route A">Route A</option>
             <option value="Route B">Route B</option>
         </select>
-        <br>
+        <br><br><br>
 
         <div id="seat-container">
             <!-- Seat elements will be generated here using JavaScript -->
