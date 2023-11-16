@@ -46,6 +46,9 @@
         select {
             padding: 8px;
         }
+        .container{
+            display : flex;
+        }
     </style>
 </head>
 
@@ -59,7 +62,9 @@
         <a href="#">PROFILE</a>
     </div>
     <div class="content">
+        <br>
         <h2>Welcome To Our Website!</h2>
+        <br>
         <form>
             <select name="From">
                 <option type="disabled">From</option>
@@ -71,11 +76,14 @@
                 <option>Delhi</option>
                 <!-- Add more options here -->
             </select>&emsp;&emsp;&emsp;
+            <input type="button" value="SEARCH">
         </form>
-        <input type="button" value="SEARCH">
+    </div>
+    <div class="container">
+        <div></div>
     </div>
     <script type="text/javascript">
-        
+
     </script>
     <?php
     $con = mysqli_connect("localhost", "root");
