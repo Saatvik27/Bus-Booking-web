@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Signup</title>
+  <title>Login & Signup</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,7 +36,6 @@
 position: relative;
 left: 20px;
 color:white;
-top:10px;
 
     }
 
@@ -46,7 +45,7 @@ top:10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    .myButton {
+    button {
       padding: 10px;
       background-color: #007BFF;
       color: #fff;
@@ -61,59 +60,31 @@ top:10px;
 </head>
 <body>
 
-
   <div class="container">
-    <form class="form" id="signupForm" >
-      <h2>Sign Up</h2>
-      <input type="text" id="signupUsername" name='user' placeholder="Username" required>
-      <input type="text" id="email" name='email' placeholder="email id" required>
-      <input type="password" id ="password" name='pass' placeholder="Password" required>
-      <input type="password" id ="confirmpassword" placeholder="confirm Password" required>
-      <input type="submit" class="myButton" name="submit" onclick="confirmPassword()">
-      <div class="login">
-	<a href="signup.php">account already exsist?log in</a>
-</div>
+    <form class="form" id="signupForm">
+      <h2>Log in</h2>
+      <input type="text" id="signupUsername" placeholder="Username" required>
+      <input type="password" id "signupPassword" placeholder="Password" required>
+      <button type="submit">Log in</button>
     </form>
   </div>
 
-<script>
-    const confirmpassword = document.getElementById("confirmpassword");
+  <script>
     const signupForm = document.getElementById("signupForm");
-    const password1 = document.getElementById("password");
+    const signupUsername = document.getElementById("signupUsername");
+    const signupPassword = document.getElementById("signupPassword");
 
     signupForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        if (password.value === confirmpassword.value) {
-            alert('Password confirmed!');
-            // You can proceed with the form submission here if the passwords match.
-            signupForm.submit();
-        } else {
-            alert('Passwords do not match. Please try again.');
-        }
+      e.preventDefault();
+      // Add your signup logic here
+      console.log("Signing up with username:", signupUsername.value);
     });
-</script>
+  </script>
 
 <?php
 $con=mysqli_connect("localhost","root");
-if(mysqli_connect_errno()){
-  echo "".mysqli_connect_error();
-}
-mysqli_query($con,"create database if not exists ids");
-if(mysqli_errno($con)){
-  echo "";
-}
 mysqli_select_db($con, "ids");
-mysqli_query( $con,"create table if not exists login_ids(username varchar(20),email_id varchar(40),password varchar(16))");
-if(mysqli_errno($con)){
-  echo "".mysqli_error($con);
-}
-if(isset($_POST['submit'])){
-	$email = $_POST['email'];
-	$pass = $_POST['pass'];
-	$user = $_POST['user'];
- 	$que="insert into login_ids values('$user','$email', '$pass')";
-	mysqli_query($con,$que);
-}
 ?>
+
 </body>
 </html>

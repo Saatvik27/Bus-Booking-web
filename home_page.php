@@ -5,7 +5,7 @@
     <title>Bus Booking System</title>
     <style>
         body {
-            background-color: #f2f2f2;
+            background color: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -69,19 +69,23 @@
             <select name="From">
                 <option type="disabled">From</option>
                 <option>Delhi</option>
-                <!-- Add more options here -->
+                <option>Mumbai</option>
+                <option>Banglore</option>
+                <option>Pune</option>
+                <option>Indore</option>
             </select>&emsp;&emsp;&emsp;
             <select name="To">
                 <option type="disabled">To</option>
-                <option>Delhi</option>
-                <!-- Add more options here -->
+                <option>Nagpur</option>
+                <option>Manali</option>
+                <option>Vishakhapatnam</option>
+                <option>Pune</option>
+                <option>Jaipur</option>
             </select>&emsp;&emsp;&emsp;
             <input type="button" value="SEARCH">
         </form>
     </div>
-    <div class="container">
-        <div></div>
-    </div>
+    
     <script type="text/javascript">
 
     </script>
