@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login & Signup</title>
+  <title>Signup</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,6 +36,7 @@
 position: relative;
 left: 20px;
 color:white;
+top:10px;
 
     }
 
@@ -60,31 +61,55 @@ color:white;
 </head>
 <body>
 
+
   <div class="container">
-    <form class="form" id="signupForm">
-      <h2>Log in</h2>
-      <input type="text" id="signupUsername" placeholder="Username" required>
-      <input type="password" id "signupPassword" placeholder="Password" required>
-      <button type="submit">Log in</button>
+    <form class="form" id="signupForm" >
+      <h2>Sign Up</h2>
+      <input type="text" id="signupUsername" name='user' placeholder="Username" required>
+      <input type="text" id="email" name='email' placeholder="email id" required>
+      <input type="password" id ="signupPassword1" name='pass' placeholder="Password" required>
+      <input type="password" id ="signupPassword" placeholder="confirm Password" required>
+      <button type="submit" name="submit" onclick="confirmPassword()">Sign Up</button>
+      <div class="login">
+	<a href="signup.php">account already exsist?log in</a>
+</div>
     </form>
   </div>
 
   <script>
-    const signupForm = document.getElementById("signupForm");
-    const signupUsername = document.getElementById("signupUsername");
-    const signupPassword = document.getElementById("signupPassword");
 
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      // Add your signup logic here
-      console.log("Signing up with username:", signupUsername.value);
-    });
+const signupForm = document.getElementById("signupForm");
+const signupUsername = document.getElementById("signupUsername");
+const password = document.getElementById("signupPassword1");
+const confirmPasswordInput = document.getElementById("signupPassword");
+
+signupForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const enteredPassword = password.value;
+    const enteredConfirmPassword = confirmPasswordInput.value;
+
+    if (enteredPassword === enteredConfirmPassword) {
+        alert('Password confirmed!');
+        window.location.href = "bus.php";
+    } else {
+        alert('Passwords do not match. Please try again.');
+    }
+});
+
   </script>
 
 <?php
 $con=mysqli_connect("localhost","root");
 mysqli_select_db($con, "ids");
+if(isset($_POST['submit'])){
+	
+	$email = $_POST['email'];
+	$pass = $_POST['pass'];
+	$user = $_POST['user'];
+ 	$que="insert into login_ids values('$user','$email', '$pass')";
+	mysqli_query($con,$que);
+}
 ?>
-
 </body>
 </html>
