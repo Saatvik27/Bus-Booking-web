@@ -80,8 +80,8 @@
 <body>
     <div class="navbar">
         <a href="#">HOME</a>
-        <a href="#">ROUTES</a>
-        <a href="#">BOOK</a>
+        <a href="routes.php">ROUTES</a>
+        <a href="bus_booking.php">BOOK</a>
         <a href="#">BOOKINGS</a>
         <a href="#">HELP</a>
         <a href="#">PROFILE</a>
