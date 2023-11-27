@@ -71,7 +71,7 @@ top:10px;
       <input type="password" id ="signupPassword" placeholder="confirm Password" required>
       <button type="submit" name="submit" onclick="confirmPassword()">Sign Up</button>
       <div class="login">
-	<a href="signup.php">account already exsist?log in</a>
+	<a href="login.php">account already exsist?log in</a>
 </div>
     </form>
   </div>
@@ -91,7 +91,7 @@ signupForm.addEventListener("submit", function (event) {
 
     if (enteredPassword === enteredConfirmPassword) {
         alert('Password confirmed!');
-        window.location.href = "bus.php";
+        window.location.href = "home_page.php";
     } else {
         alert('Passwords do not match. Please try again.');
     }

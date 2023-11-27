@@ -12,25 +12,6 @@
             height: 100%;
         }
 
-        div.navbar {
-            background-color: #333;
-            overflow: hidden;
-            text-align: center; /* Center-align the navigation bar */
-        }
-
-        div.navbar a {
-            display: inline-block; /* Display links as inline-block to control spacing */
-            color: white;
-            text-align: center;
-            padding: 16px 30px;
-            text-decoration: none;
-        }
-
-        div.navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
         .container {
             display: flex;
             flex-direction: column;
@@ -44,8 +25,10 @@
             text-align: center; /* Center-align the content */
         }
 
-        h2 {
+        h1 {
+            
             color: #ddd;
+            text-align:center;
         }
 
         form {
@@ -78,38 +61,9 @@
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="#">HOME</a>
-        <a href="#">ROUTES</a>
-        <a href="#">BOOK</a>
-        <a href="#">BOOKINGS</a>
-        <a href="#">HELP</a>
-        <a href="#">PROFILE</a>
-    </div>
     <div class="container">
-        <div class="content">
-            <h2>Welcome To Our Website!</h2>
-            <form>
-                <select name="From">
-                    <option type="disabled">From</option>
-                    <option>Delhi</option>
-                    <option>Mumbai</option>
-                    <option>Banglore</option>
-                    <option>Pune</option>
-                    <option>Indore</option>
-                </select>&emsp;&emsp;&emsp;
-                <select name="To">
-                    <option type="disabled">To</option>
-                    <option>Nagpur</option>
-                    <option>Manali</option>
-                    <option>Vishakhapatnam</option>
-                    <option>Pune</option>
-                    <option>Jaipur</option>
-                </select>&emsp;&emsp;&emsp;
-                <input type="button" value="SEARCH">
-            </form>
-        </div>
         <div class="content routes">
+            <h1>Routes<h1>
             <table class="routes-table">
                 <tr>
                     <th>RouteNo</th>
