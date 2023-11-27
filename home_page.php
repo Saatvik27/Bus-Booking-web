@@ -89,7 +89,7 @@
     <div class="container">
         <div class="content">
             <h2>Welcome To Our Website!</h2>
-            <form>
+            <form onsubmit="searchRoutes()">
                 <select name="From">
                     <option type="disabled">From</option>
                     <option>Delhi</option>
@@ -106,7 +106,7 @@
                     <option>Pune</option>
                     <option>Jaipur</option>
                 </select>&emsp;&emsp;&emsp;
-                <input type="button" value="SEARCH">
+                <input type="submit" value="SEARCH">
             </form>
         </div>
         <div class="content routes">
@@ -180,16 +180,61 @@
         </div>
     </div>
     <script type="text/javascript">
-    </script>
+    function searchRoutes() {
+        var from = document.getElementsByName("From")[0].value;
+        var to = document.getElementsByName("To")[0].value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Update the routes table with the response from the server
+                document.querySelector(".routes-table tbody").innerHTML = xhr.responseText;
+            }
+        };
+
+        // Send a GET request to your PHP script with the selected "From" and "To" values
+        xhr.open("GET", "search_routes.php?from=" + from + "&to=" + to, true);
+        xhr.send();
+        return false;
+    }
+</script>
+
+
     <?php
-    $con = mysqli_connect("localhost", "root");
+    // Connect to your database
+    $con = mysqli_connect("localhost", "root", "", "Booking");
+
+    // Check connection
     if (mysqli_connect_errno()) {
-        echo "" . mysqli_connect_error();
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        exit();
     }
-    mysqli_query($con, "create database if not exists Booking");
-    if (mysqli_errno($con)) {
-        echo "";
+
+    // Get the values from the GET request
+    $from = mysqli_real_escape_string($con, $_GET['from']);
+    $to = mysqli_real_escape_string($con, $_GET['to']);
+
+    // Perform the search query based on your database structure and conditions
+    $query = "SELECT * FROM routes WHERE `From` = '$from' AND `To` = '$to'";
+    $result = mysqli_query($con, $query);
+
+    // Build the HTML table rows based on the search result
+    $rows = '';
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows .= "<tr>";
+        $rows .= "<td>{$row['RouteNo']}</td>";
+        $rows .= "<td>{$row['BusNo']}</td>";
+        $rows .= "<td>{$row['source']}</td>";
+        $rows .= "<td>{$row['destination']}</td>";
+        $rows .= "<td>{$row['Duration']}</td>";
+        $rows .= "<td>{$row['Fare']}</td>";
+        $rows .= "</tr>";
     }
+
+    echo $rows;
+
+    // Close the database connection
+    mysqli_close($con);
     ?>
 </body>
 
