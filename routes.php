@@ -27,7 +27,8 @@
         }
 
         h1 {
-            
+            position: relative;
+            bottom: 60px;
             color: #ddd;
             text-align:center;
         }
@@ -81,7 +82,7 @@
 
 <body>
 <div class="navbar">
-        <a href="#">HOME</a>
+        <a href="home_page.php">HOME</a>
         <a href="routes.php">ROUTES</a>
         <a href="bus_booking.php">BOOK</a>
         <a href="bookings.php">BOOKINGS</a>
@@ -110,51 +111,51 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
-                    <td>5</td>
-                    <td>2300</td>
+                    <td>2</td>
+                    <td>meerut</td>
+                    <td>Banglore</td>
+                    <td>6</td>
+                    <td>2000</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
-                    <td>5</td>
-                    <td>2300</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>auli</td>
+                    <td>nagpur</td>
+                    <td>7</td>
+                    <td>2700</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
-                    <td>5</td>
-                    <td>2300</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>pune</td>
+                    <td>banglore</td>
+                    <td>6</td>
+                    <td>4800</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
-                    <td>5</td>
-                    <td>2300</td>
+                    <td>3</td>
+                    <td>6</td>
+                    <td>hydrabad</td>
+                    <td>rajnagar</td>
+                    <td>7</td>
+                    <td>300</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
                     <td>5</td>
-                    <td>2300</td>
+                    <td>5</td>
+                    <td>tripura</td>
+                    <td>gandhinagar</td>
+                    <td>10</td>
+                    <td>4000</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Delhi</td>
-                    <td>Manali</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>varanasi</td>
+                    <td>lucknow</td>
                     <td>5</td>
-                    <td>2300</td>
+                    <td>1800</td>
                 </tr>
 
             </table>
