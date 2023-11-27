@@ -63,7 +63,7 @@ top:10px;
 
 
   <div class="container">
-    <form class="form" id="signupForm" >
+    <form class="form" id="signupForm"  >
       <h2>Sign Up</h2>
       <input type="text" id="signupUsername" name='user' placeholder="Username" required>
       <input type="text" id="email" name='email' placeholder="email id" required>
@@ -71,12 +71,39 @@ top:10px;
       <input type="password" id ="signupPassword" placeholder="confirm Password" required>
       <button type="submit" name="submit" onclick="confirmPassword()">Sign Up</button>
       <div class="login">
-	<a href="login.php">account already exsist?log in</a>
+	<a href="signup.php">account already exsist?log in</a>
 </div>
     </form>
   </div>
 
-  <script>
+
+
+<?php
+$con=mysqli_connect("localhost","root","");
+if (mysqli_connect_errno()){
+echo ("error in connecting*-");}
+
+$q1="use ids;";
+mysqli_query($con, $q1);
+
+if(isset($_POST['submit'])){
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $user = $_POST['user'];
+
+    $query = "insert into login_ids VALUES ('$user', '$email', '$pass');";
+    
+    if(mysqli_query($con, $query)){
+        echo "Registration successful!";
+    } else {
+        echo "Error: " . mysqli_error($con);
+    }
+}
+
+mysqli_close($con);
+?>
+
+<script>
 
 const signupForm = document.getElementById("signupForm");
 const signupUsername = document.getElementById("signupUsername");
@@ -98,18 +125,5 @@ signupForm.addEventListener("submit", function (event) {
 });
 
   </script>
-
-<?php
-$con=mysqli_connect("localhost","root");
-mysqli_select_db($con, "ids");
-if(isset($_POST['submit'])){
-	
-	$email = $_POST['email'];
-	$pass = $_POST['pass'];
-	$user = $_POST['user'];
- 	$que="insert into login_ids values('$user','$email', '$pass')";
-	mysqli_query($con,$que);
-}
-?>
 </body>
 </html>
