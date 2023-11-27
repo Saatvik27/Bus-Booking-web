@@ -58,10 +58,36 @@
             color: white;
             padding: 10px;
         }
+        div.navbar {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center; /* Center-align the navigation bar */
+        }
+
+        div.navbar a {
+            display: inline-block; /* Display links as inline-block to control spacing */
+            color: white;
+            text-align: center;
+            padding: 16px 30px;
+            text-decoration: none;
+        }
+
+        div.navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
+<div class="navbar">
+        <a href="#">HOME</a>
+        <a href="routes.php">ROUTES</a>
+        <a href="bus_booking.php">BOOK</a>
+        <a href="bookings.php">BOOKINGS</a>
+        <a href="#">HELP</a>
+        <a href="#">PROFILE</a>
+    </div>
     <div class="container">
         <div class="content routes">
             <h1>Routes<h1>

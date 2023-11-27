@@ -10,6 +10,9 @@
             margin: 0;
             padding: 0;
             height:100%;
+            padding: 20px;
+            text-align: center; /* Center-align the content */
+            color: #333;
         }
         .seat {
             width: 50px;
@@ -27,17 +30,38 @@
         .selected {
             background-color: #00ff00;
         }
-        .content {
-            padding: 20px;
-            text-align: center; /* Center-align the content */
-            color: #333;
-        }
         .fontcolor{
             color:#ddd;
         }
+        div.navbar {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center; /* Center-align the navigation bar */
+        }
+
+        div.navbar a {
+            display: inline-block; /* Display links as inline-block to control spacing */
+            color: white;
+            text-align: center;
+            padding: 16px 30px;
+            text-decoration: none;
+        }
+
+        div.navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
 </head>
-<body class="content">
+<body>
+<div class="navbar">
+        <a href="#">HOME</a>
+        <a href="routes.php">ROUTES</a>
+        <a href="bus_booking.php">BOOK</a>
+        <a href="bookings.php">BOOKINGS</a>
+        <a href="#">HELP</a>
+        <a href="#">PROFILE</a>
+    </div>
     <h1 class="fontcolor">Select Seats</h1>
     <br>
     <form method="post">

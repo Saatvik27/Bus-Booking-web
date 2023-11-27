@@ -82,7 +82,7 @@
         <a href="#">HOME</a>
         <a href="routes.php">ROUTES</a>
         <a href="bus_booking.php">BOOK</a>
-        <a href="#">BOOKINGS</a>
+        <a href="bookings.php">BOOKINGS</a>
         <a href="#">HELP</a>
         <a href="#">PROFILE</a>
     </div>
