@@ -1,39 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Bus Booking System</title>
     <style>
-        /* Add your CSS styles for seats here */
         body {
+            width: 100vw;
+            height: 100vh;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height:100%;
-            padding: 20px;
-            text-align: center; /* Center-align the content */
-            color: #333;
         }
-        .seat {
-            width: 50px;
-            height: 50px;
-            background-color: #ccc;
-            margin: 5px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            display: inline-block;
-        }
-        .row {
-            margin-bottom: 10px;
-        }
-        .selected {
-            background-color: #00ff00;
-        }
-        .fontcolor{
-            color:#ddd;
-        }
+
         div.navbar {
+            position: relative;
+            bottom:19px;
+            right:20px;
             background-color: #333;
             overflow: hidden;
             text-align: center; /* Center-align the navigation bar */
@@ -51,21 +34,85 @@
             background-color: #ddd;
             color: black;
         }
+
+        div.content {
+            padding: 20px;
+            text-align: center; /* Center-align the content */
+        }
+
+        h1 {
+            color: white;
+            font-family: monospace;
+
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        select {
+            padding: 8px;
+        }
+        .container{
+            display : flex;
+        }
     </style>
 </head>
+
 <body>
-<div class="navbar">
-        <a href="#">HOME</a>
+    <div class="navbar">
+        <a href="home_page.php">HOME</a>
         <a href="routes.php">ROUTES</a>
         <a href="bus_booking.php">BOOK</a>
         <a href="bookings.php">BOOKINGS</a>
         <a href="#">HELP</a>
         <a href="#">PROFILE</a>
     </div>
-    <h1 class="fontcolor">Select Seats</h1>
+    <title>Bus Booking System</title>
+    <style>
+        h1{
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        h3{
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            color: white;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
+        }
+        .seat {
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            margin: 5px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .row {
+            margin-bottom: 10px;
+        }
+        .selected {
+            background-color: #00ff00;
+        }
+        .content {
+            padding: 20px;
+            text-align: center; /* Center-align the content */
+            color: #333;
+        }
+    </style>
+</head>
+<body class="content">
+    <h1>Select Seats</h1>
     <br>
     <form method="post">
-        <label for="route" class="fontcolor">Select Route:</label>
+        <label for="route"><h3>Select Route:</h3></label>
         <select id="route" name="route">
             <option value="Route A">Route A</option>
             <option value="Route B">Route B</option>
@@ -77,7 +124,7 @@
         </div>
         <br>
 
-        <input type="submit" name="book" value="Book Seats">
+        <input type="submit" name="book" value="Book Seats" >
     </form>
 
     <script>
