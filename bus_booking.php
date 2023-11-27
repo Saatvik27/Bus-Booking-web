@@ -4,6 +4,13 @@
     <title>Bus Booking System</title>
     <style>
         /* Add your CSS styles for seats here */
+        body {
+            background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height:100%;
+        }
         .seat {
             width: 50px;
             height: 50px;
@@ -25,13 +32,16 @@
             text-align: center; /* Center-align the content */
             color: #333;
         }
+        .fontcolor{
+            color:#ddd;
+        }
     </style>
 </head>
 <body class="content">
-    <h1>Select Seats</h1>
+    <h1 class="fontcolor">Select Seats</h1>
     <br>
     <form method="post">
-        <label for="route">Select Route:</label>
+        <label for="route" class="fontcolor">Select Route:</label>
         <select id="route" name="route">
             <option value="Route A">Route A</option>
             <option value="Route B">Route B</option>
