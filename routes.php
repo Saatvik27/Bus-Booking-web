@@ -86,8 +86,8 @@
         <a href="routes.php">ROUTES</a>
         <a href="bus_booking.php">BOOK</a>
         <a href="bookings.php">BOOKINGS</a>
-        <a href="#">HELP</a>
-        <a href="#">PROFILE</a>
+        <a href="help.php">HELP</a>
+        <a href="profile.php">PROFILE</a>
     </div>
     <div class="container">
         <div class="content routes">
