@@ -16,8 +16,6 @@
       background-color: #fff;
       border-radius: 5px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
       align-items: center;
       padding: 20px;
     }
@@ -33,10 +31,9 @@
     }
 
     .login{
-position: relative;
-left: 20px;
-color:white;
-
+      position: relative;
+      left: 20px;
+      color:white;
     }
 
     input {
@@ -61,30 +58,40 @@ color:white;
 <body>
 
   <div class="container">
-    <form class="form" id="signupForm">
+    <form class="form" method="post">
       <h2>Log in</h2>
-      <input type="text" id="signupUsername" placeholder="Username" required>
-      <input type="password" id "signupPassword" placeholder="Password" required>
+      <input type="text" name="signupUsername" placeholder="Username" required>
+      <input type="password" name="signupPassword" placeholder="Password" required>
       <button type="submit">Log in</button>
+      <a href="signup.php">Don't have an account? Sign up</a>
     </form>
   </div>
 
-  <script>
-    const signupForm = document.getElementById("signupForm");
-    const signupUsername = document.getElementById("signupUsername");
-    const signupPassword = document.getElementById("signupPassword");
+  <?php
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $con = mysqli_connect("localhost", "root", "", "ids");
 
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      // Add your signup logic here
-      console.log("Signing up with username:", signupUsername.value);
-    });
-  </script>
+    if (mysqli_connect_errno()) {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      exit();
+    }
 
-<?php
-$con=mysqli_connect("localhost","root");
-mysqli_select_db($con, "ids");
-?>
+    $username = mysqli_real_escape_string($con, $_POST['signupUsername']);
+    $password = mysqli_real_escape_string($con, $_POST['signupPassword']);
+
+    $query = "SELECT * FROM login_ids WHERE username='$username' AND password='$password'";
+    $result = mysqli_query($con, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+      echo "Login successful!";
+      // Redirect to another page or perform further actions as needed
+    } else {
+      echo "Invalid username or password";
+    }
+
+    mysqli_close($con);
+  }
+  ?>
 
 </body>
 </html>

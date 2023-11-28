@@ -32,12 +32,11 @@
       margin: 10px 0;
     }
 
-    .login{
-position: relative;
-left: 20px;
-color:white;
-top:10px;
-
+    .login {
+      position: relative;
+      left: 20px;
+      color: white;
+      top: 10px;
     }
 
     input {
@@ -61,69 +60,68 @@ top:10px;
 </head>
 <body>
 
-
   <div class="container">
-    <form class="form" id="signupForm"  >
+    <form class="form" id="signupForm" method="post">
       <h2>Sign Up</h2>
       <input type="text" id="signupUsername" name='user' placeholder="Username" required>
       <input type="text" id="email" name='email' placeholder="email id" required>
-      <input type="password" id ="signupPassword1" name='pass' placeholder="Password" required>
-      <input type="password" id ="signupPassword" placeholder="confirm Password" required>
-      <button type="submit" name="submit" onclick="confirmPassword()">Sign Up</button>
+      <input type="password" id="signupPassword1" name='pass' placeholder="Password" required>
+      <input type="password" id="signupPassword" name='confirmPass' placeholder="Confirm Password" required>
+      <button type="submit" name="submit">Sign Up</button>
       <div class="login">
-	<a href="signup.php">account already exsist?log in</a>
-</div>
+        <a href="login.php">Account already exists? Log in</a>
+      </div>
     </form>
   </div>
 
+  <?php
+  $con = mysqli_connect("localhost", "root", "", "ids");
 
+  if (mysqli_connect_errno()) {
+    echo ("Error in connecting*-");
+  }
 
-<?php
-$con=mysqli_connect("localhost","root","");
-if (mysqli_connect_errno()){
-echo ("error in connecting*-");}
+  $q1 = "CREATE DATABASE IF NOT EXISTS ids;";
+  mysqli_query($con, $q1);
+  mysqli_query($con, "use ids");
 
-$q1="use ids;";
-mysqli_query($con, $q1);
-
-if(isset($_POST['submit'])){
+  if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
     $user = $_POST['user'];
 
-    $query = "insert into login_ids VALUES ('$user', '$email', '$pass');";
-    
-    if(mysqli_query($con, $query)){
-        echo "Registration successful!";
+    $query = "INSERT INTO login_ids (username, email, password) VALUES ('$user', '$email', '$pass');";
+
+    if (mysqli_query($con, $query)) {
+      echo "Registration successful!";
     } else {
-        echo "Error: " . mysqli_error($con);
+      echo "Error: " . mysqli_error($con);
     }
-}
+  }
 
-mysqli_close($con);
-?>
+  mysqli_close($con);
+  ?>
 
-<script>
+  <script>
+    const signupForm = document.getElementById("signupForm");
+    const password = document.getElementById("signupPassword1");
+    const confirmPasswordInput = document.getElementById("signupPassword");
 
-const signupForm = document.getElementById("signupForm");
-const signupUsername = document.getElementById("signupUsername");
-const password = document.getElementById("signupPassword1");
-const confirmPasswordInput = document.getElementById("signupPassword");
+    signupForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
 
-signupForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the default form submission
+      const enteredPassword = password.value;
+      const enteredConfirmPassword = confirmPasswordInput.value;
 
-    const enteredPassword = password.value;
-    const enteredConfirmPassword = confirmPasswordInput.value;
-
-    if (enteredPassword === enteredConfirmPassword) {
+      if (enteredPassword === enteredConfirmPassword) {
         alert('Password confirmed!');
         window.location.href = "home_page.php";
-    } else {
+        // Submit the form if the passwords match
+        signupForm.submit();
+      } else {
         alert('Passwords do not match. Please try again.');
-    }
-});
-
+      }
+    });
   </script>
 </body>
 </html>
