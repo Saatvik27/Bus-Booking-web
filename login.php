@@ -83,10 +83,12 @@
     $result = mysqli_query($con, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
-      echo "Login successful!";
+      header("Location: home_page.php");
+      exit;
       // Redirect to another page or perform further actions as needed
     } else {
-      echo "Invalid username or password";
+      $message = "Wrong id or password";
+      echo "<script>alert('$message');</script>";
     }
 
     mysqli_close($con);

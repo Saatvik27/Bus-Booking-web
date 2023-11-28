@@ -78,7 +78,7 @@
   $con = mysqli_connect("localhost", "root", "", "ids");
 
   if (mysqli_connect_errno()) {
-    echo ("Error in connecting*-");
+    echo ("Error in connecting");
   }
 
   $q1 = "CREATE DATABASE IF NOT EXISTS ids;";

@@ -45,6 +45,7 @@
 
         h2 {
             color: #ddd;
+            padding:10px;
         }
 
         form {
@@ -86,11 +87,8 @@
         <a href="profile.php">PROFILE</a>
     </div>
     <div class="container">
-        <div class="content">
-            <h2>Welcome To Our Website!</h2>
-            <!-- Your Content -->
-        </div>
         <div class="content routes">
+            <h2>Welcome To Our Website!</h2>
             <h2>Your Bookings</h2>
             <table class="routes-table">
                 <thead>
