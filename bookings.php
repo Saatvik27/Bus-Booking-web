@@ -79,38 +79,8 @@
             <h2>Welcome To Our Website!</h2>
             <h2>Your Bookings</h2>
             <table class="routes-table">
-                <thead>
-                    <tr>
-                        <th>BookingID</th>
-                        <th>RouteNo</th>
-                        <th>BusNo</th>
-                        <th>Source</th>
-                        <th>Destination</th>
-                        <th>Duration(hr)</th>
-                        <th>Fare(Rs)</th>
-                    </tr>
-                </thead>
                 <tbody>
-                    <?php
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>{$row['BookingID']}</td>";
-                        echo "<td>{$row['RouteNo']}</td>";
-                        echo "<td>{$row['BusNo']}</td>";
-                        echo "<td>{$row['source']}</td>";
-                        echo "<td>{$row['destination']}</td>";
-                        echo "<td>{$row['Duration']}</td>";
-                        echo "<td>{$row['Fare']}</td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- Your JavaScript Code -->
-    <?php
-// Connect to your database
+                <?php
 // Connect to your database
 $con = mysqli_connect("localhost", "root", "", "ids");
 
@@ -129,9 +99,9 @@ if (isset($_SESSION['accountName'])) {
 
     // Perform the query to fetch bookings for the specified account name
     mysqli_query($con, "use ids");
-    $query = "SELECT BookingID, RouteNo, BusNo, source, destination, Duration, Fare
+    $query = "SELECT bookingacc, RouteNo, BusNo, source, destination, Duration, Fare
               FROM bookings
-              WHERE login_ids.username = '$accountName'";
+              WHERE bookingacc = '$accountName'"; // Assuming 'username' is the correct column name
     
     // Execute the query
     $result = mysqli_query($con, $query);
@@ -141,17 +111,41 @@ if (isset($_SESSION['accountName'])) {
         die('Query failed: ' . mysqli_error($con));
     }
 
-    // Build the HTML table rows based on the query result
-    while ($row = mysqli_fetch_assoc($result)) {
+    // Check if there are any bookings
+    if (mysqli_num_rows($result) > 0) {
+        // Build the HTML table header
+        echo "<table class='routes-table'>";
+        echo "<thead>";
         echo "<tr>";
-        echo "<td>{$row['BookingID']}</td>";
-        echo "<td>{$row['RouteNo']}</td>";
-        echo "<td>{$row['BusNo']}</td>";
-        echo "<td>{$row['source']}</td>";
-        echo "<td>{$row['destination']}</td>";
-        echo "<td>{$row['Duration']}</td>";
-        echo "<td>{$row['Fare']}</td>";
+        echo "<th>BookingAcc</th>";
+        echo "<th>RouteNo</th>";
+        echo "<th>BusNo</th>";
+        echo "<th>Source</th>";
+        echo "<th>Destination</th>";
+        echo "<th>Duration(hr)</th>";
+        echo "<th>Fare(Rs)</th>";
         echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+
+        // Build the HTML table rows based on the query result
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>{$row['bookingacc']}</td>";
+            echo "<td>{$row['RouteNo']}</td>";
+            echo "<td>{$row['BusNo']}</td>";
+            echo "<td>{$row['source']}</td>";
+            echo "<td>{$row['destination']}</td>";
+            echo "<td>{$row['Duration']}</td>";
+            echo "<td>{$row['Fare']}</td>";
+            echo "</tr>";
+        }
+
+        // Close the table
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<p>No bookings found.</p>";
     }
 } else {
     // Redirect to the login page if the account name is not set
@@ -163,6 +157,13 @@ if (isset($_SESSION['accountName'])) {
 mysqli_close($con);
 
 ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Your JavaScript Code -->
+
+
 
 </body>
 </html>
