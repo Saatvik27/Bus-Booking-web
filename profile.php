@@ -1,15 +1,61 @@
 <?php
-// Simulated user data
-$userData = [
-    'username' => 'john_doe',
-    'email' => 'john.doe@example.com',
-    'bookingHistory' => [
-        ['bus_number' => 'BUS123', 'departure' => 'City A', 'destination' => 'City B', 'date' => '2023-12-01'],
-        ['bus_number' => 'BUS456', 'departure' => 'City B', 'destination' => 'City C', 'date' => '2023-12-15'],
-        // Add more booking history as needed
-    ],
-];
+session_start();
 
+// Check if the user is logged in
+if (!isset($_SESSION['accountName'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Simulated database connection (replace with your actual database connection)
+$con = mysqli_connect("localhost", "root", "", "ids");
+
+// Check connection
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    exit();
+}
+
+// Retrieve user data from the database
+$accountName = $_SESSION['accountName'];
+$query = "SELECT * FROM login_ids WHERE username = '$accountName'";
+$result = mysqli_query($con, $query);
+
+// Check for errors
+if (!$result) {
+    die('Query failed: ' . mysqli_error($con));
+}
+
+// Fetch user data
+$userData = mysqli_fetch_assoc($result);
+
+// Handle updating email
+if (isset($_POST['updateEmail'])) {
+    $newEmail = mysqli_real_escape_string($con, $_POST['newEmail']);
+    $updateEmailQuery = "UPDATE login_ids SET email_id = '$newEmail' WHERE username = '$accountName'";
+    if (mysqli_query($con, $updateEmailQuery)) {
+        echo "<script>alert('Email updated successfully.');</script>";
+        // Refresh user data after update
+        $result = mysqli_query($con, $query);
+        $userData = mysqli_fetch_assoc($result);
+    } else {
+        echo "Error updating email: " . mysqli_error($con);
+    }
+}
+
+// Handle updating password
+if (isset($_POST['updatePassword'])) {
+    $newPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+    $updatePasswordQuery = "UPDATE login_ids SET password = '$newPassword' WHERE username = '$accountName'";
+    if (mysqli_query($con, $updatePasswordQuery)) {
+        echo "<script>alert('Password updated successfully.');</script>";
+    } else {
+        echo "Error updating password: " . mysqli_error($con);
+    }
+}
+
+// Close the database connection
+mysqli_close($con);
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +66,8 @@ $userData = [
     <title>Profile Page</title>
     <style>
         body {
+            width: 100vw;
+            height: 100vh;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -28,7 +76,6 @@ $userData = [
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .container {
@@ -66,6 +113,32 @@ $userData = [
             padding: 8px;
             text-align: left;
         }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -74,35 +147,19 @@ $userData = [
     <h1>Welcome, <?php echo $userData['username']; ?>!</h1>
 
     <h2>Your Profile</h2>
-    <p>Email: <?php echo $userData['email']; ?></p>
-
-    <h2>Booking History</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Bus Number</th>
-            <th>Departure</th>
-            <th>Destination</th>
-            <th>Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($userData['bookingHistory'] as $booking): ?>
-            <tr>
-                <td><?php echo $booking['bus_number']; ?></td>
-                <td><?php echo $booking['departure']; ?></td>
-                <td><?php echo $booking['destination']; ?></td>
-                <td><?php echo $booking['date']; ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+    <p>Email: <?php echo $userData['email_id']; ?></p>
 
     <h2>Update Profile</h2>
     <form action="#" method="post">
         <label for="newEmail">New Email:</label>
         <input type="text" id="newEmail" name="newEmail" required>
-        <button type="submit">Update Email</button>
+        <button type="submit" name="updateEmail">Update Email</button>
+    </form>
+
+    <form action="#" method="post">
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+        <button type="submit" name="updatePassword">Update Password</button>
     </form>
 </div>
 
