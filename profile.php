@@ -61,8 +61,6 @@ mysqli_close($con);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <style>
         body {
@@ -74,8 +72,28 @@ mysqli_close($con);
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center;
+            width: 100%;
+        }
+
+        .navbar a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 16px 30px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
         }
 
         .container {
@@ -86,6 +104,7 @@ mysqli_close($con);
             max-width: 600px;
             width: 100%;
             text-align: justify;
+            margin-top: 20px;
         }
 
         h1, h2 {
@@ -102,16 +121,8 @@ mysqli_close($con);
             line-height: 1.6;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        form {
+            margin-top: 15px;
         }
 
         label {
@@ -142,26 +153,32 @@ mysqli_close($con);
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="home_page.php">HOME</a>
+        <a href="routes.php">ROUTES</a>
+        <a href="bus_booking.php">BOOK</a>
+        <a href="bookings.php">BOOKINGS</a>
+        <a href="help.php">HELP</a>
+        <a href="profile.php">PROFILE</a>
+    </div>
+    <div class="container">
+        <h1>Welcome, <?php echo $userData['username']; ?>!</h1>
 
-<div class="container">
-    <h1>Welcome, <?php echo $userData['username']; ?>!</h1>
+        <h2>Your Profile</h2>
+        <p>Email: <?php echo $userData['email_id']; ?></p>
 
-    <h2>Your Profile</h2>
-    <p>Email: <?php echo $userData['email_id']; ?></p>
+        <h2>Update Profile</h2>
+        <form action="#" method="post">
+            <label for="newEmail">New Email:</label>
+            <input type="text" id="newEmail" name="newEmail" required>
+            <button type="submit" name="updateEmail">Update Email</button>
+        </form>
 
-    <h2>Update Profile</h2>
-    <form action="#" method="post">
-        <label for="newEmail">New Email:</label>
-        <input type="text" id="newEmail" name="newEmail" required>
-        <button type="submit" name="updateEmail">Update Email</button>
-    </form>
-
-    <form action="#" method="post">
-        <label for="newPassword">New Password:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
-        <button type="submit" name="updatePassword">Update Password</button>
-    </form>
-</div>
-
+        <form action="#" method="post">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+            <button type="submit" name="updatePassword">Update Password</button>
+        </form>
+    </div>
 </body>
 </html>
