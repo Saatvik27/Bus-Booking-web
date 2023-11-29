@@ -75,10 +75,11 @@
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
       exit();
     }
-
+    mysqli_query($con,"use ids");
     $username = mysqli_real_escape_string($con, $_POST['signupUsername']);
     $password = mysqli_real_escape_string($con, $_POST['signupPassword']);
-
+    session_start();
+    $_SESSION['accountName'] = $username;
     $query = "SELECT * FROM login_ids WHERE username='$username' AND password='$password'";
     $result = mysqli_query($con, $query);
 
@@ -87,7 +88,7 @@
       exit;
       // Redirect to another page or perform further actions as needed
     } else {
-      $message = "Wrong id or password";
+      $message = "Wrong id or ,password";
       echo "<script>alert('$message');</script>";
     }
 
