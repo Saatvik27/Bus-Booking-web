@@ -43,6 +43,12 @@
 
         }
 
+        h2{
+            text-align: center;
+            color: white;
+            font-family: monospace;
+        }
+
         form {
             margin-top: 20px;
         }
@@ -52,6 +58,9 @@
         }
         .container{
             display : flex;
+        }
+        .intro{
+            text-align: center;
         }
     </style>
 </head>
@@ -88,6 +97,10 @@
             </select>&emsp;&emsp;&emsp;
             <input type="button" value="SEARCH">
         </form>
+    </div>
+    <div class="intro">
+        <h2>Navigate Your Journey with Ease: Book Your Bus Adventure Today!</h2>
+        <img src="bus.jpeg" alt="bus picture" width="400" height="400">
     </div>
     
     <script type="text/javascript">
