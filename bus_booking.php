@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang=>
+<html lang="en">
 
 <head>
     <title>Bus Booking System</title>
     <style>
         body {
-            height:100%;
+            height: 100%;
             margin: 0;
             padding: 0;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
@@ -37,10 +37,11 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
-            text-align:center;
+            text-align: center;
         }
 
-        h1,h3 {
+        h1,
+        h3 {
             font-family: Arial, sans-serif;
             color: white;
         }
@@ -54,7 +55,7 @@
             line-height: 50px;
             cursor: pointer;
             display: inline-block;
-            color:#333
+            color: #333;
         }
 
         .row {
@@ -129,16 +130,17 @@
 
                 row.appendChild(seat);
             }
+            
         </script>
 
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
-            $route = $_POST["route"];
-            $selectedSeats = $_POST["seats"];
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
+    $route = $_POST["route"];
+    $selectedSeats = isset($_POST["seats"]) ? explode(",", $_POST["seats"]) : [];
 
-            echo "You have successfully booked the following seats on $route: " . implode(", ", $selectedSeats);
-        }
-        ?>
+    echo "You have successfully booked the following seats on $route: " . implode(", ", $selectedSeats);
+}
+?>
     </div>
 </body>
 
