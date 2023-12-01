@@ -79,8 +79,31 @@
             <h2>Welcome To Our Website!</h2>
             <h2>Your Bookings</h2>
             <table class="routes-table">
+                <thead>
+                    <tr>
+                        <th>BookingID</th>
+                        <th>RouteNo</th>
+                        <th>BusNo</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Duration(hr)</th>
+                        <th>Fare(Rs)</th>
+                        <th>Seat</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <?php
+    <?php
+session_start();
+
+// Check if the user is not logged in
+if (!isset($_SESSION['accountName'])) {
+    // Redirect to the login page
+    header("Location: login.php");
+    exit();
+}
+
+// If logged in, continue with your booking page content
+
 // Connect to your database
 $con = mysqli_connect("localhost", "root", "", "ids");
 
@@ -90,45 +113,36 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-// Start the session
-session_start();
+// Get the logged-in username
+$username = $_SESSION['accountName'];
 
-// Check if the account name is set
-if (isset($_SESSION['accountName'])) {
-    $accountName = $_SESSION['accountName'];
+// Perform a query to get the user details based on the username
+$query = "SELECT * FROM login_ids WHERE username = '$username'";
+$result = mysqli_query($con, $query);
 
-    // Perform the query to fetch bookings for the specified account name
-    mysqli_query($con, "use ids");
-    $query = "SELECT bookingacc, RouteNo, BusNo, source, destination, Duration, Fare
-              FROM bookings
-              WHERE bookingacc = '$accountName'"; // Assuming 'username' is the correct column name
-    
-    // Execute the query
+// Check for errors and if there is a result
+if ($result && mysqli_num_rows($result) > 0) {
+    // Fetch the user details
+    $userDetails = mysqli_fetch_assoc($result);
+
+    // Now you can use $userDetails to get user-specific information
+    // For example, $userDetails['FirstName'], $userDetails['LastName'], etc.
+} else {
+    // Redirect to the login page if the user details are not found
+    header("Location: login.php");
+    exit();
+}
+
+    // Get the logged-in username
+    $username = $_SESSION['accountName'];
+
+    // Perform a query to get the user details based on the username
+    $query = "SELECT * FROM bookings WHERE bookingacc = '$username'";
     $result = mysqli_query($con, $query);
 
-    // Check for errors
-    if (!$result) {
-        die('Query failed: ' . mysqli_error($con));
-    }
-
-    // Check if there are any bookings
-    if (mysqli_num_rows($result) > 0) {
-        // Build the HTML table header
-        echo "<table class='routes-table'>";
-        echo "<thead>";
-        echo "<tr>";
-        echo "<th>BookingAcc</th>";
-        echo "<th>RouteNo</th>";
-        echo "<th>BusNo</th>";
-        echo "<th>Source</th>";
-        echo "<th>Destination</th>";
-        echo "<th>Duration(hr)</th>";
-        echo "<th>Fare(Rs)</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
-
-        // Build the HTML table rows based on the query result
+    // Check for errors and if there is a result
+    if ($result && mysqli_num_rows($result) > 0) {
+        // Fetch and display the booking details
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>{$row['bookingacc']}</td>";
@@ -138,32 +152,21 @@ if (isset($_SESSION['accountName'])) {
             echo "<td>{$row['destination']}</td>";
             echo "<td>{$row['Duration']}</td>";
             echo "<td>{$row['Fare']}</td>";
+            echo "<td>{$row['seats']}</td>";
             echo "</tr>";
         }
-
-        // Close the table
-        echo "</tbody>";
-        echo "</table>";
     } else {
-        echo '<p style="color: white;">No bookings found.</p>';
+        // Display a message if no bookings are found
+        echo "<tr><td colspan='8'>No bookings found.</td></tr>";
     }
-} else {
-    // Redirect to the login page if the account name is not set
-    header("Location: login.php");
-    exit(); // Make sure to exit after a header redirect
-}
 
-// Close the database connection
-mysqli_close($con);
-
-?>
-                </tbody>
+    // Close the database connection
+    mysqli_close($con);
+    ?>
+</tbody>
             </table>
         </div>
     </div>
     <!-- Your JavaScript Code -->
-
-
-
 </body>
 </html>
