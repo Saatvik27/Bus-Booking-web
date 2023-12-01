@@ -95,7 +95,7 @@
         if (mysqli_query($con, $query)) {
             $message = "Registration Successful!";
             echo "<script>alert('$message');</script>";
-            header("Location: home_page.php");
+            header("Location: login.php");
             exit;
         } else {
             echo "Error: " . mysqli_error($con);
