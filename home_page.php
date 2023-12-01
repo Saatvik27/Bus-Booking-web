@@ -6,7 +6,7 @@
     <style>
         body {
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
             font-family: Arial, sans-serif;
             margin: 0;
@@ -76,7 +76,7 @@
     </div>
     <div class="content">
         <br>
-        <h1>Welcome To Our Website!</h1>
+        <h1>Welcome To Our Website, Blue Bus!</h1>
         <br>
     </div>
     <div class="intro">
