@@ -100,17 +100,16 @@
             </div>
             <br>
 
-            <input type="submit" name="book" value="Book Seats">
+            <input type="submit" name="book" value="Book Seat">
         </form>
 
         <script>
             // Example JavaScript for generating and selecting seats
             var seatContainer = document.getElementById("seat-container");
-            var numSeats = 30;
-            var seatsPerRow = 5;
+            var selectedSeat = null;
 
-            for (var i = 1; i <= numSeats; i++) {
-                if (i % seatsPerRow === 1) {
+            for (var i = 1; i <= 30; i++) {
+                if (i % 6 === 1) {
                     var row = document.createElement("div");
                     row.className = "row";
                     seatContainer.appendChild(row);
@@ -121,19 +120,20 @@
                 seat.textContent = i;
 
                 seat.addEventListener("click", function () {
-                    if (this.classList.contains("selected")) {
-                        this.classList.remove("selected");
-                    } else {
-                        this.classList.add("selected");
+                    if (selectedSeat !== null) {
+                        selectedSeat.classList.remove("selected");
                     }
+
+                    this.classList.add("selected");
+                    selectedSeat = this;
                 });
 
                 row.appendChild(seat);
             }
-            
         </script>
 
-<?php
+        <?php
+        session_start();
         $con = mysqli_connect("localhost", "root", "", "ids");
 
         if (mysqli_connect_errno()) {
@@ -143,15 +143,29 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
             $route = $_POST["route"];
-            $selectedSeats = isset($_POST["seats"]) ? $_POST["seats"] : '';
+            $selectedSeat = isset($_POST["seats"]) ? $_POST["seats"] : '';
 
-            // Store selected seats in the bookings table
-            if (!empty($selectedSeats)) {
-                $query = "INSERT INTO bookings (RouteNo, seat) VALUES ('$route', '$selectedSeats')";
+            if (!empty($selectedSeat)) {
+                // Fetch additional details from the routes table
+                $query = "SELECT * FROM routes WHERE RouteNo = '$route'";
+                $result = mysqli_query($con, $query);
+                $row = mysqli_fetch_assoc($result);
+
+                // Extracting values from the fetched row
+                $busNo = $row["BusNo"];
+                $source = $row["source"];
+                $destination = $row["destination"];
+                $duration = $row["Duration"];
+                $fare = $row["Fare"];
+
+                // Insert booking information into the bookings table
+                $bookingAcc = $_SESSION["bookingacc"];
+                $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
+                          VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
                 mysqli_query($con, $query);
-            }
 
-            echo "You have successfully booked the following seats on $route: " . $selectedSeats;
+                echo "You have successfully booked seat $selectedSeat on $route.";
+            }
         }
         ?>
     </div>
