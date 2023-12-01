@@ -90,8 +90,16 @@
                 <h3>Select Route:</h3>
             </label>
             <select id="route" name="route">
-                <option value="Route A">Route A</option>
-                <option value="Route B">Route B</option>
+                <option value="Route 1">Route 1</option>
+                <option value="Route 2">Route 2</option>
+                <option value="Route 3">Route 3</option>
+                <option value="Route 4">Route 4</option>
+                <option value="Route 5">Route 5</option>
+                <option value="Route 6">Route 6</option>
+                <option value="Route 7">Route 7</option>
+                <option value="Route 8">Route 8</option>
+                <option value="Route 9">Route 9</option>
+                <option value="Route 10">Route 10</option>
             </select>
             <br><br><br>
 
@@ -133,7 +141,6 @@
         </script>
 
         <?php
-        session_start();
         $con = mysqli_connect("localhost", "root", "", "ids");
 
         if (mysqli_connect_errno()) {
@@ -159,7 +166,7 @@
                 $fare = $row["Fare"];
 
                 // Insert booking information into the bookings table
-                $bookingAcc = $_SESSION["bookingacc"];
+                $bookingAcc = $_SESSION["accountName"];
                 $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
                           VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
                 mysqli_query($con, $query);
