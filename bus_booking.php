@@ -131,14 +131,21 @@
                 mysqli_close($con);
                 ?>
             </select>
-            <br><br><br>
+            <br><br>
+
+            <!-- Add input field for booking account -->
+            <label for="bookingacc">
+                <h3>Enter Booking Account:</h3>
+            </label>
+            <input type="text" id="bookingacc" name="bookingacc" required>
+            <br><br>
 
             <div id="seat-container">
                 <!-- Seat elements will be generated here using JavaScript -->
             </div>
             <br>
 
-            <input type="submit" name="book" value="book">
+            <input type="submit" name="book" value="Book">
         </form>
 
         <script>
@@ -183,8 +190,9 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
             $route = isset($_POST["route"]) ? $_POST["route"] : '';
             $selectedSeat = isset($_POST["seats"]) ? $_POST["seats"] : '';
+            $bookingacc = isset($_POST["bookingacc"]) ? $_POST["bookingacc"] : '';
 
-            if (!empty($selectedSeat)) {
+            if (!empty($selectedSeat) && !empty($bookingacc)) {
                 // Fetch additional details from the routes table
                 $query = "SELECT * FROM routes WHERE RouteNo = '$route'";
                 $result = mysqli_query($con, $query);
@@ -201,7 +209,6 @@
                     $fare = $row["Fare"];
 
                     // Insert booking information into the bookings table
-                    $bookingacc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
                     $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
                           VALUES ('$bookingacc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
                     mysqli_query($con, $query);
@@ -210,6 +217,8 @@
                 } else {
                     echo "Error fetching route details. Please try again.";
                 }
+            } else {
+                echo "<br>Please select a seat and enter a booking account.";
             }
         }
         ?>
