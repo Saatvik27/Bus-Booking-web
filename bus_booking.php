@@ -134,13 +134,26 @@
         </script>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
-    $route = $_POST["route"];
-    $selectedSeats = isset($_POST["seats"]) ? explode(",", $_POST["seats"]) : [];
+        $con = mysqli_connect("localhost", "root", "", "ids");
 
-    echo "You have successfully booked the following seats on $route: " . implode(", ", $selectedSeats);
-}
-?>
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            exit();
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
+            $route = $_POST["route"];
+            $selectedSeats = isset($_POST["seats"]) ? $_POST["seats"] : '';
+
+            // Store selected seats in the bookings table
+            if (!empty($selectedSeats)) {
+                $query = "INSERT INTO bookings (RouteNo, seat) VALUES ('$route', '$selectedSeats')";
+                mysqli_query($con, $query);
+            }
+
+            echo "You have successfully booked the following seats on $route: " . $selectedSeats;
+        }
+        ?>
     </div>
 </body>
 
