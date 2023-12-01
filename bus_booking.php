@@ -109,7 +109,7 @@
             </div>
             <br>
 
-            <input type="submit" name="book" value="Book Seat">
+            <input type="submit" name="book" value="book">
         </form>
 
         <script>
@@ -144,42 +144,48 @@
                 row.appendChild(seat);
             }
         </script>
+<?php
+$con = mysqli_connect("localhost", "root", "", "ids");
 
-        <?php
-        $con = mysqli_connect("localhost", "root", "", "ids");
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    exit();
+}
 
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            exit();
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
+    $route = isset($_POST["route"]) ? $_POST["route"] : '';
+    $selectedSeat = isset($_POST["seats"]) ? $_POST["seats"] : '';
+
+    if (!empty($selectedSeat)) {
+        // Fetch additional details from the routes table
+        $query = "SELECT * FROM routes WHERE RouteNo = '$route'";
+        $result = mysqli_query($con, $query);
+
+        // Check if the query was successful and rows were returned
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            // Extracting values from the fetched row
+            $busNo = $row["BusNo"];
+            $source = $row["source"];
+            $destination = $row["destination"];
+            $duration = $row["Duration"];
+            $fare = $row["Fare"];
+
+            // Insert booking information into the bookings table
+            $bookingAcc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
+            $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
+                      VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
+            mysqli_query($con, $query);
+
+            echo "You have successfully booked seat $selectedSeat on $route.";
+        } else {
+            echo "Error fetching route details. Please try again.";
         }
+    }
+}
+?>
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
-            $route = isset($_POST["route"]) ? $_POST["route"] : '';
-            $selectedSeat = isset($_POST["seats"]) ? $_POST["seats"] : '';
-
-            if (!empty($selectedSeat)) {
-                // Fetch additional details from the routes table
-                $query = "SELECT * FROM routes WHERE RouteNo = '$route'";
-                $result = mysqli_query($con, $query);
-                $row = mysqli_fetch_assoc($result);
-
-                // Extracting values from the fetched row
-                $busNo = $row["BusNo"];
-                $source = $row["source"];
-                $destination = $row["destination"];
-                $duration = $row["Duration"];
-                $fare = $row["Fare"];
-
-                // Insert booking information into the bookings table
-                $bookingAcc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
-                $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
-                          VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
-                mysqli_query($con, $query);
-
-                echo "You have successfully booked seat $selectedSeat on $route.";
-            }
-        }
-        ?>
     </div>
 </body>
 
