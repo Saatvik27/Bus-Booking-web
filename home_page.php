@@ -6,7 +6,7 @@
     <style>
         body {
             width: 100vw;
-            height: 100%;
+            height: 100vh;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
             font-family: Arial, sans-serif;
             margin: 0;
