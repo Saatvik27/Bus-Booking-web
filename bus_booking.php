@@ -201,9 +201,9 @@
                     $fare = $row["Fare"];
 
                     // Insert booking information into the bookings table
-                    $bookingAcc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
+                    $bookingacc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
                     $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
-                          VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
+                          VALUES ('$bookingacc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
                     mysqli_query($con, $query);
 
                     echo "You have successfully booked seat $selectedSeat from $source to $destination.";
