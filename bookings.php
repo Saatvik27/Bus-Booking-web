@@ -145,7 +145,7 @@ if (isset($_SESSION['accountName'])) {
         echo "</tbody>";
         echo "</table>";
     } else {
-        echo "<p>No bookings found.</p>";
+        echo '<p style="color: white;">No bookings found.</p>';
     }
 } else {
     // Redirect to the login page if the account name is not set
