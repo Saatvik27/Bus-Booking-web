@@ -6,7 +6,7 @@
     <style>
         body {
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             background: linear-gradient(139.06deg, #2b3693 1.86%, #0a0e30 56.22%);
             font-family: Arial, sans-serif;
             margin: 0;
@@ -78,25 +78,6 @@
         <br>
         <h1>Welcome To Our Website!</h1>
         <br>
-        <form>
-            <select name="From">
-                <option type="disabled">From</option>
-                <option>Delhi</option>
-                <option>Mumbai</option>
-                <option>Banglore</option>
-                <option>Pune</option>
-                <option>Indore</option>
-            </select>&emsp;&emsp;&emsp;
-            <select name="To">
-                <option type="disabled">To</option>
-                <option>Nagpur</option>
-                <option>Manali</option>
-                <option>Vishakhapatnam</option>
-                <option>Pune</option>
-                <option>Jaipur</option>
-            </select>&emsp;&emsp;&emsp;
-            <input type="button" value="SEARCH">
-        </form>
     </div>
     <div class="intro">
         <h2>Navigate Your Journey with Ease: Book Your Bus Adventure Today!</h2>
