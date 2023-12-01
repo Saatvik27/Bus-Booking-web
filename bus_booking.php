@@ -89,6 +89,7 @@
             <label for="route">
                 <h3>Select Route:</h3>
             </label>
+            <input type="hidden" id="selected-seat" name="seats" value="">
             <select id="route" name="route">
                 <option value="Route 1">Route 1</option>
                 <option value="Route 2">Route 2</option>
@@ -128,13 +129,17 @@
                 seat.textContent = i;
 
                 seat.addEventListener("click", function () {
-                    if (selectedSeat !== null) {
-                        selectedSeat.classList.remove("selected");
-                    }
+                if (selectedSeat !== null) {
+                    selectedSeat.classList.remove("selected");
+                }
+            
+                this.classList.add("selected");
+                selectedSeat = this;
+            
+                // Set the selected seat value in a hidden input field
+                document.getElementById("selected-seat").value = this.innerText;
+            });
 
-                    this.classList.add("selected");
-                    selectedSeat = this;
-                });
 
                 row.appendChild(seat);
             }
@@ -149,7 +154,7 @@
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["book"])) {
-            $route = $_POST["route"];
+            $route = isset($_POST["route"]) ? $_POST["route"] : '';
             $selectedSeat = isset($_POST["seats"]) ? $_POST["seats"] : '';
 
             if (!empty($selectedSeat)) {
@@ -166,7 +171,7 @@
                 $fare = $row["Fare"];
 
                 // Insert booking information into the bookings table
-                $bookingAcc = $_SESSION["accountName"];
+                $bookingAcc = isset($_SESSION["accountName"]) ? $_SESSION["accountName"] : '';
                 $query = "INSERT INTO bookings (bookingacc, RouteNo, BusNo, source, destination, Duration, Fare, seats) 
                           VALUES ('$bookingAcc', '$route', '$busNo', '$source', '$destination', '$duration', '$fare', '$selectedSeat')";
                 mysqli_query($con, $query);
