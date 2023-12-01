@@ -87,10 +87,8 @@
         $email = mysqli_real_escape_string($con, $_POST['email']);
         $password = mysqli_real_escape_string($con, $_POST['signupPassword1']);
 
-        // You should hash the password before storing it in the database
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO login_ids (username, email_id, password) VALUES ('$username', '$email', '$hashedPassword')";
+        $query = "INSERT INTO login_ids (username, email_id, password) VALUES ('$username', '$email', '$password')";
 
         if (mysqli_query($con, $query)) {
             $message = "Registration Successful!";
